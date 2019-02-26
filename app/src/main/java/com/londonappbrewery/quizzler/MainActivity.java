@@ -58,6 +58,16 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (savedInstanceState != null){
+            mScore = savedInstanceState.getInt("ScoreKey");
+            mIndex = savedInstanceState.getInt("IndexKey");
+
+        }else {
+            mScore = 0;
+            mIndex = 0;
+
+        }
+
         // 2. use the findViewById()
         mTrueButton = findViewById(R.id.true_button);
         mFalseButton = findViewById(R.id.false_button);
@@ -67,6 +77,7 @@ public class MainActivity extends Activity {
 
              mQuestion = mQuestionBank[mIndex].getmQuestionID();
              mQuestiontextView.setText(mQuestion);
+             mScoreTextView.setText("Score " + mScore + "/" + mQuestionBank.length);
 
         mTrueButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +136,12 @@ public class MainActivity extends Activity {
 
         }
 
+    }
+@Override
+    public void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        outState.putInt("ScoreKey", mScore);
+        outState.putInt("Indexkey", mIndex);
     }
 
 }
